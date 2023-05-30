@@ -57,7 +57,7 @@ public class GameOverScene extends JPanel {
         fadeInTimer = new Timer(20, new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (alpha < 1.0f) {
-                    alpha += 0.01f;
+                    alpha += 0.03f;
                     backgroundPanel.setAlpha(alpha);
                     backgroundPanel.repaint();
                 } else {
