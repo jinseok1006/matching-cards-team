@@ -70,7 +70,7 @@ class TitleScene extends JPanel {
     	
     	
     	
-    	ImageIcon icon = new ImageIcon("image/title.png");
+    	ImageIcon icon = new ImageIcon("image/title_back.png");
 
         JPanel background = new JPanel() {
             public void paintComponent(Graphics g) {
@@ -125,7 +125,7 @@ class TitleScene extends JPanel {
             }
         });
         btn_R.setBounds(100, 330, 108, 72);
-        btn_R.setFont(new Font("Ariel", Font.PLAIN, 30));
+        btn_R.setFont(new Font("맑은 고딕", Font.PLAIN, 30));
         btn_R.setBackground(Color.CYAN);
         
         
@@ -137,13 +137,13 @@ class TitleScene extends JPanel {
             }
         });
         btn_Q.setBounds(500, 330, 108, 72);
-        btn_Q.setFont(new Font("Ariel", Font.PLAIN, 30));
+        btn_Q.setFont(new Font("맑은 고딕", Font.PLAIN, 30));
         btn_Q.setBackground(Color.CYAN);
         
         
         Rmenubar mb = new Rmenubar();
-        JMenu m1 = new JMenu("  시작");
-        m1.setFont(new Font("Ariel", Font.PLAIN, 30));
+        JMenu m1 = new JMenu(" 시작");
+        m1.setFont(new Font("맑은 고딕", Font.PLAIN, 30));
         m1.setPreferredSize(new Dimension(108,72));
         //m1.setForeground(Color.WHITE);
         mb.setBackground(Color.CYAN);

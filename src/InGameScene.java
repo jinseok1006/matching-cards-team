@@ -66,7 +66,7 @@ public class InGameScene extends JPanel {
         // 타이머 레이블 생성
         JLabel timerLabel = new JLabel("Shown for 3 seconds and START!");
         timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        timerLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        timerLabel.setFont(new Font("맑은 고딕", Font.BOLD, 24));
         add(timerLabel, BorderLayout.NORTH);
 
         // 모든 카드를 앞면으로 보이도록 설정

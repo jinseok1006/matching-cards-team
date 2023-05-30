@@ -48,7 +48,7 @@ public class GameOverScene extends JPanel {
         setLayout(new BorderLayout());
 
         // 배경 이미지 패널
-        backgroundPanel = new ImagePanel(new ImageIcon("image/gameover.png").getImage());
+        backgroundPanel = new ImagePanel(new ImageIcon("image/gameover_back.png").getImage());
         backgroundPanel.setLayout(new BorderLayout());
 
         add(backgroundPanel);
@@ -73,7 +73,7 @@ public class GameOverScene extends JPanel {
         nicknamePanel.setOpaque(true);
 
         JLabel rankLabel = new JLabel("당신의 기록은 " + time + "초입니다.");
-        rankLabel.setFont(new Font("Arial", Font.PLAIN, 36));
+        rankLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 36));
         rankLabel.setForeground(Color.BLACK);
 
         // 이미지 하단 가운데에 위치하기 위한 추가 코드
@@ -95,7 +95,7 @@ public class GameOverScene extends JPanel {
 
      // 축하 메시지
      JLabel congratulationsLabel = new JLabel("축하합니다!");
-     congratulationsLabel.setFont(new Font("Arial", Font.PLAIN, 36));
+     congratulationsLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 36));
      congratulationsLabel.setForeground(Color.BLACK);
 
   // 중앙 패널에 컴포넌트를 추가하고 위치 설정
@@ -115,13 +115,13 @@ public class GameOverScene extends JPanel {
      // 중앙 패널을 backgroundPanel의 중앙에 추가
      backgroundPanel.add(centerPanel, BorderLayout.CENTER);
         JLabel nicknameLabel = new JLabel("Enter Nickname:");
-        nicknameLabel.setFont(new Font("Arial", Font.PLAIN, 27));
+        nicknameLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 27));
         nicknameLabel.setForeground(Color.BLACK);
         nicknamePanel.add(nicknameLabel);
 
         // 닉네임 입력 필드
         JTextField nicknameField = new JTextField(15);
-        nicknameField.setFont(new Font("Arial", Font.PLAIN, 24));
+        nicknameField.setFont(new Font("맑은 고딕", Font.PLAIN, 24));
         Color Fieldcolor = new Color(255, 251, 240);
         nicknameField.setBackground(Fieldcolor);
         nicknameField.setForeground(Color.BLACK);
