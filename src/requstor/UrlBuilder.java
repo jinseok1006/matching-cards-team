@@ -12,7 +12,7 @@ class UrlBuilder {
         this.endpoint = "";
     }
 
-    public String register(String diff, String name, int sec) {
+    public String register(String diff, String name, double sec) {
         this.endpoint = "/register/" + diff + "?name=" + urlEncode(name) + "&sec=" + sec;
         return toString();
     }

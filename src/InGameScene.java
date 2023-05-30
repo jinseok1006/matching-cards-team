@@ -7,6 +7,47 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+class FloatTimer {
+    private int time = 0;
+    private Timer timer;
+    private JLabel timerLabel;
+
+    public FloatTimer(JLabel timerLabel) {
+        this.timerLabel=timerLabel;
+        timer=new Timer(10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                increase();
+                timerLabel.setText(FloatTimer.this.toString());
+            }
+        });
+    }
+
+    public void startTimer() {
+        this.timer.start();
+    }
+
+    public void stopTimer() {
+        timer.stop();
+    }
+
+    public void increase() {
+        time += 1;
+    }
+
+    public double getTime() {
+        return time / 100.0;
+    }
+
+    @Override
+    public String toString() {
+        int sec = time / 100;
+        int milliSec = time % 100;
+
+        return sec + "." + (milliSec < 10 ? "0" + milliSec : milliSec);
+    }
+}
+
 public class InGameScene extends JPanel {
     public static final int EASY = 0;
     public static final int NORMAL = 1;
@@ -31,6 +72,8 @@ public class InGameScene extends JPanel {
 
     private Main main;
     private int difficulty;
+
+    private FloatTimer floatTimer;
 
     public InGameScene(Main main, int difficulty) {
         this.main = main;
@@ -69,6 +112,8 @@ public class InGameScene extends JPanel {
         timerLabel.setFont(new Font("맑은 고딕", Font.BOLD, 24));
         add(timerLabel, BorderLayout.NORTH);
 
+        this.floatTimer=new FloatTimer(timerLabel);
+
         // 모든 카드를 앞면으로 보이도록 설정
         for (CardButton[] row : cards) {
             for (CardButton cardButton : row) {
@@ -89,7 +134,10 @@ public class InGameScene extends JPanel {
                 // 게임 시작 시간 기록
                 startTime = System.currentTimeMillis();
                 // 타이머 시작
-                startTimer(timerLabel);
+//                startTimer(timerLabel);
+                floatTimer.startTimer();
+
+
             }
         });
         timer.setRepeats(false);
@@ -155,6 +203,7 @@ public class InGameScene extends JPanel {
         timer.start();
     }
 
+
     public void stopTimer() {
         if (timer != null && timer.isRunning()) {
             timer.stop();
@@ -196,10 +245,11 @@ public class InGameScene extends JPanel {
 
                     if (totalMatches == totalPairs) {
                         // 모든 짝을 다 맞춤
-                        stopTimer();
-                        int seconds = (int) (elapsedTime / 1000);
+//                        stopTimer();
+//                        int seconds = (int) (elapsedTime / 1000);
+                        floatTimer.stopTimer();
                         JOptionPane.showMessageDialog(null, "축하합니다!");
-                        InGameScene.this.main.setGameOverScene(InGameScene.this.difficulty, seconds);
+                        InGameScene.this.main.setGameOverScene(InGameScene.this.difficulty, floatTimer.getTime());
                     }
 
                     selectedCard = null;

@@ -26,6 +26,9 @@ public class Main extends JFrame {
         currentScene = this.titleScene;
         this.setContentPane(currentScene);
 
+        // 창 가운데 정렬
+        setLocationRelativeTo(null);
+
         setVisible(true);
     }
 
@@ -38,7 +41,7 @@ public class Main extends JFrame {
         revalidate();
     }
 
-    public void setGameOverScene(int difficulty, int time) {
+    public void setGameOverScene(int difficulty, double time) {
         currentScene = new GameOverScene(this, this.requestor, difficulty, time);
         updateScene();
     }

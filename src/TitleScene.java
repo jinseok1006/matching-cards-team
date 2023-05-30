@@ -42,8 +42,8 @@ class Rmenubar extends JMenuBar {
     }
 
     protected void decorate() {
-        setBorderPainted(false);
-        setOpaque(false);
+//        setBorderPainted(false);
+//        setOpaque(false);
     }
     protected void paintComponent(Graphics g) {
         int width = getWidth();
@@ -142,11 +142,11 @@ class TitleScene extends JPanel {
         
         
         Rmenubar mb = new Rmenubar();
-        JMenu m1 = new JMenu(" 시작");
+        JMenu m1 = new JMenu("시작");
         m1.setFont(new Font("맑은 고딕", Font.PLAIN, 30));
         m1.setPreferredSize(new Dimension(108,72));
         //m1.setForeground(Color.WHITE);
-        mb.setBackground(Color.CYAN);
+//        mb.setBackground(Color.CYAN);
         
         
         m1.add(btn_E);

@@ -25,7 +25,7 @@ public class Requestor {
         return this.status;
     }
 
-    public String register(String diff, String name, int sec) {
+    public String register(String diff, String name, double sec) {
         if (!status) return null;
         String urlString = urlBuilder.register(diff, name, sec);
         return request(urlString);

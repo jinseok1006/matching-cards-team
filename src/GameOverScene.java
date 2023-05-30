@@ -33,13 +33,13 @@ public class GameOverScene extends JPanel {
     private float alpha = 0.0f;
 
     public Main main; // Main 클래스의 인스턴스 변수
-    public int time; // int 값의 변수
+    public double time; // int 값의 변수
     private String difficulty;
     private Requestor requestor;
 
     private static String DIFFICULTIES[] = {"easy", "normal", "hard"};
 
-    public GameOverScene(Main main, Requestor requestor, int difficulty, int time) {
+    public GameOverScene(Main main, Requestor requestor, int difficulty, double time) {
         this.main = main;
         this.requestor=requestor;
         this.time = time;
