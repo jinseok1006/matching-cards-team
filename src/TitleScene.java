@@ -66,7 +66,7 @@ class Rmenubar extends JMenuBar {
 //----------------------------------------------------------------
 
 class TitleScene extends JPanel {
-    private boolean difficultyMenuVisible = false;
+
 
     public TitleScene(Main main) {
 
@@ -139,7 +139,6 @@ class TitleScene extends JPanel {
         btn_Q.setFont(new Font("맑은 고딕", Font.PLAIN, 30));
 
 
-
 //        Rmenubar mb = new Rmenubar();
 //        JMenu m1 = new JMenu("시작");
 //        m1.setFont(new Font("맑은 고딕", Font.PLAIN, 30));
@@ -158,12 +157,8 @@ class TitleScene extends JPanel {
         gameStartBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (difficultyMenuVisible) {
-                    difficultyMenuVisible=false;
-                } else {
-                    difficultyMenu.show(gameStartBtn, 0, gameStartBtn.getHeight());
-                    difficultyMenuVisible=true;
-                }
+                difficultyMenu.show(gameStartBtn, 0, gameStartBtn.getHeight());
+
             }
         });
 

@@ -315,7 +315,7 @@ public class InGameScene extends JPanel {
                     isChecking = false;
                 } else {
                     // 짝이 맞지 않는 경우
-                    Timer timer = new Timer(750, new ActionListener() {
+                    Timer timer = new Timer(400, new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             selectedCard.hideImage();

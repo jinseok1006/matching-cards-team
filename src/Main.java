@@ -34,6 +34,8 @@ public class Main extends JFrame {
 
         // 창 가운데 정렬
         setLocationRelativeTo(null);
+        // 창 크기 고정
+        setResizable(false);
 
         setVisible(true);
     }
