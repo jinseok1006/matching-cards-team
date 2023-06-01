@@ -4,19 +4,25 @@ import javax.swing.*;
 
 
 public class Main extends JFrame {
+    private static final int width = 700, height = 700;
     private JPanel currentScene;
     // 재사용 가능한 패널과 프레임
     private LeaderboardDialog leaderboardDialog;
     private TitleScene titleScene;
-    
+
     private Requestor requestor;
 
     public Main() {
-        setSize(700, 700);
+        super("찾아봐요 카드의숲");
+        setSize(width, height);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // 서버가 열렸는지 확인
-        this.requestor = new Requestor("http://3.34.97.153:3000");
+        this.requestor = new Requestor();
+        if (requestor.getStatus() == false) {
+            JOptionPane.showMessageDialog(null, "서버와 연결되지 않았습니다.", "Error", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
 
         // 재사용가능한 프레임와 패널 생성
         this.titleScene = new TitleScene(this);

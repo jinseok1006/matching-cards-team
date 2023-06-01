@@ -16,9 +16,16 @@ public class Requestor {
     private UrlBuilder urlBuilder;
     private boolean status;
 
-    public Requestor(String domain) {
+    public Requestor() {
+        String domain = getDomain();
         urlBuilder = new UrlBuilder(domain);
+
+        System.out.println(domain);
         status = setStatus();
+    }
+
+    public String getDomain() {
+        return request("https://raw.githubusercontent.com/jinseok1006/matching-cards-team/master/.env");
     }
 
     public boolean getStatus() {
@@ -92,7 +99,7 @@ public class Requestor {
 
 
     public static void main(String[] args) throws ParseException {
-        Requestor requestor = new Requestor("http://localhost:3000"); // 위 경로로 서버와 통신하는 객체 생성
+        Requestor requestor = new Requestor(); // 위 경로로 서버와 통신하는 객체 생성
 
 
         String hardResponse = requestor.get("hard"); // hard난이도 기록 전부 불러오기, "false"면 실패한 것(접근금지)
