@@ -25,7 +25,7 @@ public class Requestor {
     }
 
     public String getDomain() {
-        return request("https://raw.githubusercontent.com/jinseok1006/matching-cards-team/master/.env");
+        return request("https://raw.githubusercontent.com/jinseok1006/matching-cards-team/master/.server");
     }
 
     public boolean getStatus() {
