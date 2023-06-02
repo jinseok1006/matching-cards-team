@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="matching-cards-team:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/matching_cards_team_jar</output-path>
+    <root id="archive" name="matching-cards-team.jar">
+      <element id="module-output" name="matching-cards-team" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/json-simple-1.1.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

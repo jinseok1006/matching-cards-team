@@ -129,11 +129,10 @@ class LeaderboardScene extends JPanel {
     }
 
     private Object[][] getExampleRankingForDifficulty(String difficulty) {
-        Requestor requestor = LeaderboardScene.this.requestor;
 
         JSONParser jsonParser = new JSONParser();
         String rankString = requestor.get(difficulty);
-        
+
         // 오류 발생시 임시값 리턴
         if (rankString == null) {
             return new Object[][]{
