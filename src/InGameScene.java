@@ -7,101 +7,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-class FloatTimer {
-    private int time = 0;
-    private Timer timer;
-    private JLabel timerLabel;
-
-    public FloatTimer(JLabel timerLabel) {
-        this.timerLabel = timerLabel;
-        timer = new Timer(10, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                increase();
-                timerLabel.setText(FloatTimer.this.toString());
-            }
-        });
-    }
-
-    public void startTimer() {
-        this.timer.start();
-    }
-
-    public void stopTimer() {
-        timer.stop();
-    }
-
-    public void increase() {
-        time += 1;
-    }
-
-    public double getTime() {
-        return time / 100.0;
-    }
-
-    @Override
-    public String toString() {
-        int sec = time / 100;
-        int milliSec = time % 100;
-
-        return sec + "." + (milliSec < 10 ? "0" + milliSec : milliSec);
-    }
-}
-
-class StartThread extends Thread {
-    private InGameScene scene;
-    private JLabel timerLabel;
-    private CardButton[][] cards;
-    private int count;
-    private FloatTimer timer;
-
-    public StartThread(InGameScene scene, JLabel timerLabel, CardButton[][] cards, FloatTimer timer, int count) {
-        this.scene = scene;
-        this.timerLabel = timerLabel;
-        this.cards = cards;
-        this.count = count;
-        this.timer = timer;
-    }
-
-    @Override
-    public void run() {
-        scene.setIsHinting(true);
-        timerLabel.setText("Shown for " + count + " seconds and START!");
-
-        try {
-            // 카드 차례대로 열기
-            for (var row : cards) {
-                for (var cardButton : row) {
-                    cardButton.showImage();
-                    Thread.sleep(100);
-
-                }
-            }
-            // count초 동안 반복
-            while (count > 0) {
-                try {
-                    timerLabel.setText("Shown for " + count + " seconds and START!");
-                    Thread.sleep(1000);
-                    count--;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            // 한꺼번에 덮기
-            for (var row : cards) {
-                for (var cardButton : row) {
-                    cardButton.hideImage();
-                }
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        // 타이머 시작
-        scene.setIsHinting(false);
-        timer.startTimer();
-    }
-}
-
 public class InGameScene extends JPanel {
     public static final int EASY = 0;
     public static final int NORMAL = 1;
@@ -165,16 +70,16 @@ public class InGameScene extends JPanel {
         timerLabel.setFont(new Font("맑은 고딕", Font.BOLD, 24));
         add(timerLabel, BorderLayout.NORTH);
 
-        // 타이머 객체 생성
-        this.floatTimer = new FloatTimer(timerLabel);
 
-        // 모든 카드를 앞면으로 보이도록 설정
+        // 모든 카드를 가린채로 시작
         for (CardButton[] row : cards) {
             for (CardButton cardButton : row) {
                 cardButton.hideImage();
             }
         }
 
+        // 타이머 객체 생성
+        this.floatTimer = new FloatTimer(timerLabel);
         // 5초동안 카드를 보여준후 카드를 뒤집고 게임 시작
         new StartThread(this, timerLabel, cards, floatTimer, HINT_TIMES[difficulty]).start();
     }
@@ -350,5 +255,100 @@ class CardButton extends JButton {
         int newHeight = (int) (CARD_HEIGHT * 0.7);
         Image resizedImage = image.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
         return new ImageIcon(resizedImage);
+    }
+}
+
+class FloatTimer {
+    private int time = 0;
+    private Timer timer;
+    private JLabel timerLabel;
+
+    public FloatTimer(JLabel timerLabel) {
+        this.timerLabel = timerLabel;
+        timer = new Timer(10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                increase();
+                timerLabel.setText(FloatTimer.this.toString());
+            }
+        });
+    }
+
+    public void startTimer() {
+        this.timer.start();
+    }
+
+    public void stopTimer() {
+        timer.stop();
+    }
+
+    public void increase() {
+        time += 1;
+    }
+
+    public double getTime() {
+        return time / 100.0;
+    }
+
+    @Override
+    public String toString() {
+        int sec = time / 100;
+        int milliSec = time % 100;
+
+        return sec + "." + (milliSec < 10 ? "0" + milliSec : milliSec);
+    }
+}
+
+class StartThread extends Thread {
+    private InGameScene scene;
+    private JLabel timerLabel;
+    private CardButton[][] cards;
+    private int count;
+    private FloatTimer timer;
+
+    public StartThread(InGameScene scene, JLabel timerLabel, CardButton[][] cards, FloatTimer timer, int count) {
+        this.scene = scene;
+        this.timerLabel = timerLabel;
+        this.cards = cards;
+        this.count = count;
+        this.timer = timer;
+    }
+
+    @Override
+    public void run() {
+        scene.setIsHinting(true);
+        timerLabel.setText("Shown for " + count + " seconds and START!");
+
+        try {
+            // 카드 차례대로 열기
+            for (var row : cards) {
+                for (var cardButton : row) {
+                    cardButton.showImage();
+                    Thread.sleep(100);
+
+                }
+            }
+            // count초 동안 반복
+            while (count > 0) {
+                try {
+                    timerLabel.setText("Shown for " + count + " seconds and START!");
+                    Thread.sleep(1000);
+                    count--;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            // 한꺼번에 덮기
+            for (var row : cards) {
+                for (var cardButton : row) {
+                    cardButton.hideImage();
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        // 타이머 시작
+        scene.setIsHinting(false);
+        timer.startTimer();
     }
 }
