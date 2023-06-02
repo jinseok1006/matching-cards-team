@@ -66,30 +66,40 @@ class StartThread extends Thread {
     @Override
     public void run() {
         scene.setIsHinting(true);
-        // count초 동안 반복
-        while (count > 0) {
-            try {
-                Thread.sleep(1000);
-                count--;
-                timerLabel.setText("Shown for " + count + " seconds and START!");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        timerLabel.setText("Shown for " + count + " seconds and START!");
 
-        // 카드 전부 덮기
-        for (CardButton[] row : cards) {
-            for (CardButton cardButton : row) {
-                cardButton.hideImage();
-            }
-        }
+        try {
+            // 카드 차례대로 열기
+            for (var row : cards) {
+                for (var cardButton : row) {
+                    cardButton.showImage();
+                    Thread.sleep(100);
 
+                }
+            }
+            // count초 동안 반복
+            while (count > 0) {
+                try {
+                    timerLabel.setText("Shown for " + count + " seconds and START!");
+                    Thread.sleep(1000);
+                    count--;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            // 한꺼번에 덮기
+            for (var row : cards) {
+                for (var cardButton : row) {
+                    cardButton.hideImage();
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // 타이머 시작
         scene.setIsHinting(false);
         timer.startTimer();
     }
-
-
 }
 
 public class InGameScene extends JPanel {
@@ -99,6 +109,7 @@ public class InGameScene extends JPanel {
 
     private static final int ROWS[] = {4, 4, 4};
     private static final int COLUMNS[] = {4, 5, 6};
+    private static final int HINT_TIMES[] = {5, 6, 7};
 
     private static final int TOTAL_IMAGES = 18;
     private static final int IMAGES_PER_PAIR = 2;
@@ -107,17 +118,14 @@ public class InGameScene extends JPanel {
     private int column;
     private int totalPairs;
 
-    private boolean isHinting;
     private int totalMatches;
     private CardButton selectedCard;
     private boolean isChecking;
-    private Timer timer;
-    private long startTime;
-    private long elapsedTime;
 
     private Main main;
     private int difficulty;
 
+    private boolean isHinting;
     private FloatTimer floatTimer;
 
     public InGameScene(Main main, int difficulty) {
@@ -152,7 +160,7 @@ public class InGameScene extends JPanel {
         add(cardPanel, BorderLayout.CENTER);
 
         // 타이머 레이블 생성
-        JLabel timerLabel = new JLabel("Shown for 5 seconds and START!");
+        JLabel timerLabel = new JLabel();
         timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
         timerLabel.setFont(new Font("맑은 고딕", Font.BOLD, 24));
         add(timerLabel, BorderLayout.NORTH);
@@ -163,37 +171,12 @@ public class InGameScene extends JPanel {
         // 모든 카드를 앞면으로 보이도록 설정
         for (CardButton[] row : cards) {
             for (CardButton cardButton : row) {
-                cardButton.showImage();
+                cardButton.hideImage();
             }
         }
 
-
-        // 3초 후에 카드를 뒷면으로 다시 뒤집음
-//        Timer hintTimer = new Timer(5000, new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                for (CardButton[] row : cards) {
-//                    for (CardButton cardButton : row) {
-//                        cardButton.hideImage();
-//                    }
-//                }
-//
-//                // 타이머 시작
-//                floatTimer.startTimer();
-//
-//            }
-//        });
-//        hintTimer.setRepeats(false);
-//        hintTimer.start();
-
-//         5초동안 카드를 보여준후 카드를 뒤집고 게임 시작
-        new StartThread(
-                this,
-                timerLabel,
-                cards,
-                floatTimer,
-                5
-        ).start();
+        // 5초동안 카드를 보여준후 카드를 뒤집고 게임 시작
+        new StartThread(this, timerLabel, cards, floatTimer, HINT_TIMES[difficulty]).start();
     }
 
     public void setIsHinting(boolean hint) {
@@ -247,26 +230,6 @@ public class InGameScene extends JPanel {
         return cards;
     }
 
-    private void startTimer(JLabel timerLabel) {
-        timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                elapsedTime = System.currentTimeMillis() - startTime;
-                int seconds = (int) (elapsedTime / 1000);
-                String time = String.format("%d", seconds);
-                timerLabel.setText(time);
-            }
-        });
-        timer.start();
-    }
-
-
-    public void stopTimer() {
-        if (timer != null && timer.isRunning()) {
-            timer.stop();
-        }
-    }
-
     private class CardButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -315,7 +278,7 @@ public class InGameScene extends JPanel {
                     isChecking = false;
                 } else {
                     // 짝이 맞지 않는 경우
-                    Timer timer = new Timer(400, new ActionListener() {
+                    Timer timer = new Timer(500, new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             selectedCard.hideImage();
