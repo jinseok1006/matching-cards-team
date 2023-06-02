@@ -4,6 +4,7 @@ import org.json.simple.parser.JSONParser;
 import requstor.Requestor;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,25 +17,25 @@ public class LeaderboardDialog extends JDialog {
 
     public LeaderboardDialog(JFrame frame, Requestor requestor) {
         super(frame, "Leaderboard", true);
-        this.requestor=requestor;
+        this.requestor = requestor;
         setSize(500, 400);
         setLocationRelativeTo(null);
     }
-
-    // 강조 표시가 있으면 강조표시 존재하는 패널
-    // 강조 표시 없으면 강조표시 없는 패널
-    // 두개로 분리하여 생성
+    
+    // 리더보드 창을 표시하는 메서드
     public void showLeaderboard() {
         this.leaderboardScene = new LeaderboardScene(this, this.requestor);
         setContentPane(leaderboardScene);
         setVisible(true);
     }
 
+    // 리더보드 창을 닫는 메서드
     public void closeLeaderboard() {
         setVisible(false);
     }
 }
 
+// 리더보드 화면을 담당하는 패널 클래스
 class LeaderboardScene extends JPanel {
     private String currentDifficulty;
     private int currentDifficultyIndex;
@@ -50,7 +51,7 @@ class LeaderboardScene extends JPanel {
 
     public LeaderboardScene(LeaderboardDialog frame, Requestor requestor) {
         this.frame = frame;
-        this.requestor=requestor;
+        this.requestor = requestor;
 
         setLayout(new BorderLayout());
 
@@ -90,8 +91,17 @@ class LeaderboardScene extends JPanel {
 
         String[] columnNames = {"Rank", "Player", "Time"};
         Object[][] data = getExampleRankingForDifficulty(currentDifficulty);
-        tableModel = new DefaultTableModel(data, columnNames);
+        tableModel = new DefaultTableModel(data, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         table = new JTable(tableModel);
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        table.setDefaultRenderer(Object.class, centerRenderer);
 
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
@@ -123,7 +133,7 @@ class LeaderboardScene extends JPanel {
 
         JSONParser jsonParser = new JSONParser();
         String rankString = requestor.get(difficulty);
-
+        
         // 오류 발생시 임시값 리턴
         if (rankString == null) {
             return new Object[][]{
@@ -142,14 +152,10 @@ class LeaderboardScene extends JPanel {
                 rankArray[i] = new Object[]{i + 1, player.get("name"), player.get("sec")};
             }
 
-            System.out.println(Arrays.deepToString(rankArray));
-
             return rankArray;
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
         return new Object[][]{
                 {1, "Player1", 120},
