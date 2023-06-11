@@ -41,7 +41,7 @@ public class GameOverScene extends JPanel {
 
     public GameOverScene(Main main, Requestor requestor, int difficulty, double time) {
         this.main = main;
-        this.requestor=requestor;
+        this.requestor = requestor;
         this.time = time;
         this.difficulty = DIFFICULTIES[difficulty];
 
@@ -69,7 +69,7 @@ public class GameOverScene extends JPanel {
 
         // 닉네임 입력 패널
         JPanel nicknamePanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        nicknamePanel.setBackground(new Color(255, 251,240)); 
+        nicknamePanel.setBackground(new Color(255, 251, 240));
         nicknamePanel.setOpaque(true);
 
         JLabel rankLabel = new JLabel("당신의 기록은 " + time + "초입니다.");
@@ -88,32 +88,32 @@ public class GameOverScene extends JPanel {
         // 닉네임 레이블// 이미지 하단 가운데에 위치하기 위한 추가 코드
         backgroundPanel.setLayout(new BorderLayout());
 
-     // 중앙 패널
-     JPanel centerPanel2 = new JPanel();
-     centerPanel.setOpaque(false);
-     centerPanel.setLayout(new GridBagLayout());
+        // 중앙 패널
+        JPanel centerPanel2 = new JPanel();
+        centerPanel.setOpaque(false);
+        centerPanel.setLayout(new GridBagLayout());
 
-     // 축하 메시지
-     JLabel congratulationsLabel = new JLabel("축하합니다!");
-     congratulationsLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 36));
-     congratulationsLabel.setForeground(Color.BLACK);
+        // 축하 메시지
+        JLabel congratulationsLabel = new JLabel("축하합니다!");
+        congratulationsLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 36));
+        congratulationsLabel.setForeground(Color.BLACK);
 
-  // 중앙 패널에 컴포넌트를 추가하고 위치 설정
-     GridBagConstraints gbc = new GridBagConstraints();
-     gbc.gridx = 0;
-     gbc.gridy = 0;
-     gbc.anchor = GridBagConstraints.PAGE_END; // 정중앙 아래로 정렬
-     gbc.insets = new Insets(300, 0, 0, 0); // 위쪽 여백 추가 (100px)
+        // 중앙 패널에 컴포넌트를 추가하고 위치 설정
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.PAGE_END; // 정중앙 아래로 정렬
+        gbc.insets = new Insets(300, 0, 0, 0); // 위쪽 여백 추가 (100px)
 
-     centerPanel.add(congratulationsLabel, gbc);
+        centerPanel.add(congratulationsLabel, gbc);
 
-     gbc.gridy = 1;
-     gbc.insets = new Insets(10, 0, 0, 0); // 위쪽 여백 추가 (10px)
-     centerPanel.add(rankLabel, gbc);
+        gbc.gridy = 1;
+        gbc.insets = new Insets(10, 0, 0, 0); // 위쪽 여백 추가 (10px)
+        centerPanel.add(rankLabel, gbc);
 
 
-     // 중앙 패널을 backgroundPanel의 중앙에 추가
-     backgroundPanel.add(centerPanel, BorderLayout.CENTER);
+        // 중앙 패널을 backgroundPanel의 중앙에 추가
+        backgroundPanel.add(centerPanel, BorderLayout.CENTER);
         JLabel nicknameLabel = new JLabel("Enter Nickname:");
         nicknameLabel.setFont(new Font("맑은 고딕", Font.PLAIN, 27));
         nicknameLabel.setForeground(Color.BLACK);
@@ -127,8 +127,7 @@ public class GameOverScene extends JPanel {
         nicknameField.setForeground(Color.BLACK);
         nicknameField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Requestor requestor= GameOverScene.this.requestor;
-
+                Requestor requestor = GameOverScene.this.requestor;
                 String nickname = nicknameField.getText();
                 requestor.register(GameOverScene.this.difficulty, nickname, GameOverScene.this.time);
 

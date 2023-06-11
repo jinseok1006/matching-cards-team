@@ -51,22 +51,4 @@ class UrlBuilder {
         return baseUrl + endpoint;
     }
 
-    public static void main(String[] args) {
-        String dest = "http://localhost:3000";
-        UrlBuilder urlBuilder = new UrlBuilder(dest);
-
-        String diff = "normal";
-        String name = "John";
-        int sec = 10;
-
-        System.out.println(urlBuilder.register(diff, name, sec)); // "http://localhost:3000/register/normal?name=John&sec=10"
-
-        System.out.println(urlBuilder.get(diff)); // "http://localhost:3000/get/normal/"
-
-        System.out.println(urlBuilder.reset()); // "http://localhost:3000/"
-
-        System.out.println(urlBuilder.get());
-
-
-    }
 }

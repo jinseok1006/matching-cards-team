@@ -14,8 +14,6 @@ public class Main extends JFrame {
 
     public Main() {
         super("찾아봐요 카드의숲");
-        setSize(width, height);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // 서버가 열렸는지 확인
         this.requestor = new Requestor();
@@ -29,14 +27,12 @@ public class Main extends JFrame {
         this.leaderboardDialog = new LeaderboardDialog(this, this.requestor);
 
         // 현재 패널 결정
-        currentScene = this.titleScene;
-        this.setContentPane(currentScene);
+        setTitleScene();
 
-        // 창 가운데 정렬
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(width, height);
         setLocationRelativeTo(null);
-        // 창 크기 고정
         setResizable(false);
-
         setVisible(true);
     }
 

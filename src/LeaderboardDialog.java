@@ -1,6 +1,3 @@
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import requstor.Requestor;
 
 import javax.swing.*;
@@ -9,7 +6,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 public class LeaderboardDialog extends JDialog {
     private Requestor requestor;
@@ -21,7 +17,7 @@ public class LeaderboardDialog extends JDialog {
         setSize(500, 400);
         setLocationRelativeTo(null);
     }
-    
+
     // 리더보드 창을 표시하는 메서드
     public void showLeaderboard() {
         this.leaderboardScene = new LeaderboardScene(this, this.requestor);
@@ -89,7 +85,7 @@ class LeaderboardScene extends JPanel {
         buttonPanel.add(nextButton);
         add(buttonPanel, BorderLayout.NORTH);
 
-        String[] columnNames = {"Rank", "Player", "Time"};
+        String[] columnNames = {"Rank", "Player", "Time", "Date"};
         Object[][] data = getExampleRankingForDifficulty(currentDifficulty);
         tableModel = new DefaultTableModel(data, columnNames) {
             @Override
@@ -129,12 +125,10 @@ class LeaderboardScene extends JPanel {
     }
 
     private Object[][] getExampleRankingForDifficulty(String difficulty) {
-
-        JSONParser jsonParser = new JSONParser();
-        String rankString = requestor.get(difficulty);
+        Object[][] rankObject = requestor.get(difficulty);
 
         // 오류 발생시 임시값 리턴
-        if (rankString == null) {
+        if (rankObject == null) {
             return new Object[][]{
                     {1, "Player1", 120},
                     {2, "Player2", 150},
@@ -142,30 +136,12 @@ class LeaderboardScene extends JPanel {
             };
         }
 
-        try {
-            JSONArray jsonArray = (JSONArray) jsonParser.parse(rankString);
-            Object[][] rankArray = new Object[jsonArray.size()][];
-
-            for (int i = 0; i < jsonArray.size(); i++) {
-                var player = (JSONObject) jsonArray.get(i);
-                rankArray[i] = new Object[]{i + 1, player.get("name"), player.get("sec")};
-            }
-
-            return rankArray;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return new Object[][]{
-                {1, "Player1", 120},
-                {2, "Player2", 150},
-                {3, "Player3", 180}
-        };
+        return rankObject;
     }
 
     private void showExampleRankingForDifficulty(String difficulty) {
         Object[][] data = getExampleRankingForDifficulty(difficulty);
-        tableModel.setDataVector(data, new String[]{"Rank", "Player", "Time"});
+        tableModel.setDataVector(data, new String[]{"Rank", "Player", "Time", "Date"});
     }
 
     private void updateDifficultyLabel() {
