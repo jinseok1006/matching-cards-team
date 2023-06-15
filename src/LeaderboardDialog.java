@@ -19,8 +19,8 @@ public class LeaderboardDialog extends JDialog {
     }
 
     // 리더보드 창을 표시하는 메서드
-    public void showLeaderboard() {
-        this.leaderboardScene = new LeaderboardScene(this, this.requestor);
+    public void showLeaderboard(int diff) {
+        this.leaderboardScene = new LeaderboardScene(this, this.requestor, diff);
         setContentPane(leaderboardScene);
         setVisible(true);
     }
@@ -45,13 +45,12 @@ class LeaderboardScene extends JPanel {
     private LeaderboardDialog frame;
     private Requestor requestor;
 
-    public LeaderboardScene(LeaderboardDialog frame, Requestor requestor) {
+    public LeaderboardScene(LeaderboardDialog frame, Requestor requestor, int currentDifficultyIndex) {
         this.frame = frame;
         this.requestor = requestor;
 
         setLayout(new BorderLayout());
 
-        currentDifficultyIndex = 0;
         currentDifficulty = difficultyList[currentDifficultyIndex];
 
         JButton prevButton = new JButton("<"); // 이전 난이도로 변경하는 버튼

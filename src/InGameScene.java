@@ -11,10 +11,11 @@ public class InGameScene extends JPanel {
     public static final int EASY = 0;
     public static final int NORMAL = 1;
     public static final int HARD = 2;
-
+    
+    // 난이도에 따른 카드 갯수
     private static final int ROWS[] = {4, 4, 4};
     private static final int COLUMNS[] = {4, 5, 6};
-    private static final int HINT_TIMES[] = {5, 6, 7};
+    private static final int HINT_TIMES[] = {5, 6, 7}; // 게임 시작시 힌트 시간
 
     private static final int TOTAL_IMAGES = 18;
     private static final int IMAGES_PER_PAIR = 2;

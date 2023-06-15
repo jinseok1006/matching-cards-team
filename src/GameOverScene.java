@@ -35,6 +35,7 @@ public class GameOverScene extends JPanel {
     public Main main; // Main 클래스의 인스턴스 변수
     public double time; // int 값의 변수
     private String difficulty;
+    private int difficultyInt;
     private Requestor requestor;
 
     private static String DIFFICULTIES[] = {"easy", "normal", "hard"};
@@ -44,6 +45,7 @@ public class GameOverScene extends JPanel {
         this.requestor = requestor;
         this.time = time;
         this.difficulty = DIFFICULTIES[difficulty];
+        this.difficultyInt = difficulty;
 
         setLayout(new BorderLayout());
 
@@ -85,11 +87,12 @@ public class GameOverScene extends JPanel {
 
         add(backgroundPanel);
 
-        // 닉네임 레이블// 이미지 하단 가운데에 위치하기 위한 추가 코드
+        // 닉네임 레이블
+        // 이미지 하단 가운데에 위치하기 위한 추가 코드
         backgroundPanel.setLayout(new BorderLayout());
 
         // 중앙 패널
-        JPanel centerPanel2 = new JPanel();
+//        JPanel centerPanel2 = new JPanel();
         centerPanel.setOpaque(false);
         centerPanel.setLayout(new GridBagLayout());
 
@@ -133,7 +136,7 @@ public class GameOverScene extends JPanel {
 
 
                 // 순위표를 표시하는 새로운 창 열음
-                GameOverScene.this.main.showLeaderboard();
+                GameOverScene.this.main.showLeaderboard(difficultyInt);
                 GameOverScene.this.main.setTitleScene();
             }
         });

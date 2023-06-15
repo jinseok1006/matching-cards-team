@@ -9,7 +9,7 @@ public class Main extends JFrame {
     // 재사용 가능한 패널과 프레임
     private LeaderboardDialog leaderboardDialog;
     private TitleScene titleScene;
-
+    // 서버 객체 생성
     private Requestor requestor;
 
     public Main() {
@@ -26,9 +26,10 @@ public class Main extends JFrame {
         this.titleScene = new TitleScene(this);
         this.leaderboardDialog = new LeaderboardDialog(this, this.requestor);
 
-        // 현재 패널 결정
+        // 프레임 타이틀 화면 설정
         setTitleScene();
 
+        // 프레임 상태 결정
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(width, height);
         setLocationRelativeTo(null);
@@ -36,10 +37,11 @@ public class Main extends JFrame {
         setVisible(true);
     }
 
-    public void showLeaderboard() {
-        leaderboardDialog.showLeaderboard();
+    public void showLeaderboard(int diff) {
+        leaderboardDialog.showLeaderboard(diff);
     }
 
+    // currentScene 변경시 화면 update
     public void updateScene() {
         setContentPane(currentScene);
         revalidate();

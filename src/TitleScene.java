@@ -3,78 +3,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
-class RButton extends JButton {
-
-    public RButton(String text) {
-        super(text);
-        decorate();
-    }
-
-    protected void decorate() {
-        setBorderPainted(false);
-        setOpaque(false);
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        int width = getWidth();
-        int height = getHeight();
-
-        Graphics2D graphics = (Graphics2D) g;
-
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        graphics.setColor(getBackground());
-
-        graphics.fillRoundRect(0, 0, width, height, 10, 10);
-
-
-        super.paintComponent(g);
-    }
-}
-//---------------------------------------------------------------------------------------------------
-
-class Rmenubar extends JMenuBar {
-
-    public Rmenubar() {
-        super();
-        decorate();
-    }
-
-    protected void decorate() {
-        setBorderPainted(false);
-        setOpaque(false);
-    }
-
-    protected void paintComponent(Graphics g) {
-        int width = getWidth();
-        int height = getHeight();
-
-        Graphics2D graphics = (Graphics2D) g;
-
-        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        graphics.setColor(getBackground());
-
-        graphics.fillRoundRect(0, 0, width, height, 10, 10);
-
-
-        super.paintComponent(g);
-    }
-}
-//----------------------------------------------------------------
-
 class TitleScene extends JPanel {
 
 
     public TitleScene(Main main) {
-
         setLayout(null);
 
-
+        // 백그라운드 패널을 생성하여 이미지 삽입
         ImageIcon icon = new ImageIcon("image/title_back.png");
-
         JPanel background = new JPanel() {
             public void paintComponent(Graphics g) {
 
@@ -88,7 +24,7 @@ class TitleScene extends JPanel {
         background.setBounds(0, 0, 700, 700);
         add(background);
 
-
+        // 버튼 생성과 이벤트 추가
         JMenuItem btn_E = new JMenuItem("EASY (4X4)");
         btn_E.addActionListener(new ActionListener() {
             @Override
@@ -120,7 +56,7 @@ class TitleScene extends JPanel {
         btn_R.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                main.showLeaderboard();
+                main.showLeaderboard(0);
             }
         });
         btn_R.setBounds(100, 330, 108, 72);
@@ -139,13 +75,6 @@ class TitleScene extends JPanel {
         btn_Q.setFont(new Font("맑은 고딕", Font.PLAIN, 30));
 
 
-//        Rmenubar mb = new Rmenubar();
-//        JMenu m1 = new JMenu("시작");
-//        m1.setFont(new Font("맑은 고딕", Font.PLAIN, 30));
-//        m1.setPreferredSize(new Dimension(108, 72));
-//        m1.setForeground(Color.WHITE);
-//        mb.setBackground(Color.CYAN);
-
         JButton gameStartBtn = new JButton("시작");
         gameStartBtn.setFont(new Font("맑은 고딕", Font.PLAIN, 30));
 
@@ -163,26 +92,14 @@ class TitleScene extends JPanel {
         });
 
 
-//        m1.add(btn_E);
-//        m1.addSeparator();
-//        m1.add(btn);
-//        m1.addSeparator();
-//        m1.add(btn_H);
-
-//        mb.setPreferredSize(new Dimension(108, 72));
-//        mb.setBounds(300, 330, 108, 72);
-//        mb.add(m1);
-
+        // 버튼 배치
         difficultyMenu.setPreferredSize(new Dimension(108, 72));
         gameStartBtn.setPreferredSize(new Dimension(108, 72));
         gameStartBtn.setBounds(300, 330, 108, 72);
 
         background.add(gameStartBtn);
-//        background.add(mb);
         background.add(btn_R);
         background.add(btn_Q);
-
-
     }
 
 }
