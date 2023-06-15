@@ -92,7 +92,6 @@ public class GameOverScene extends JPanel {
         backgroundPanel.setLayout(new BorderLayout());
 
         // 중앙 패널
-//        JPanel centerPanel2 = new JPanel();
         centerPanel.setOpaque(false);
         centerPanel.setLayout(new GridBagLayout());
 
